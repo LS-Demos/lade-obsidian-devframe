@@ -1,0 +1,4120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171717">
+
+    <title>Girish Lade — Design. Develop. Build.</title>
+
+    <meta name="description" content="Girish Lade — UI/UX Designer, Full-Stack Developer and Founder of LadeStack. Building thoughtful digital products, developer tools and browser-first experiences.">
+    <meta name="author" content="Girish Balaso Lade">
+    <meta property="og:title" content="Girish Lade — Independent Product Builder">
+    <meta property="og:description" content="Engineer by training. Product builder by choice.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23181818'/%3E%3Cpath d='M20 16v32h27v-7H28V16z' fill='white'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           01 — DESIGN SYSTEM
+        ========================================= */
+
+        :root {
+            --background: #171717;
+            --surface: #1b1b1b;
+            --surface-raised: #232323;
+            --surface-hover: #292929;
+            --border: #303030;
+            --border-light: #3b3b3b;
+            --text: #f5f5f5;
+            --secondary: #b4b4b4;
+            --muted: #858585;
+            --cyan: #29b8ef;
+            --green: #3bc779;
+            --gold: #f5d477;
+            --radius: 14px;
+            --font: 'Inter', Arial, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: #22495b;
+            color: white;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #171717;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 10px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 4px;
+        }
+
+        button {
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .section-container {
+            width: min(1136px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: -70px;
+            left: 20px;
+            background: white;
+            color: black;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 10px;
+        }
+
+        /* =========================================
+           02 — NAVIGATION
+        ========================================= */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(23, 23, 23, .91);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: border-color .25s;
+        }
+
+        .header.scrolled {
+            border-bottom-color: var(--border);
+        }
+
+        .navigation {
+            height: 68px;
+            display: flex;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 800;
+            font-size: 23px;
+            letter-spacing: -1.1px;
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(145deg, #353535, #0a0a0a);
+            border: 1px solid #444;
+            border-radius: 9px;
+            box-shadow: inset 0 0 0 2px #191919;
+            font-weight: 800;
+            font-size: 23px;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+        }
+
+        .nav-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pill-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 17px;
+            background: #f7f7f7;
+            border: 1px solid #efefef;
+            border-radius: 100px;
+            color: #191919;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: transform .2s, background .2s;
+        }
+
+        .pill-button:hover {
+            background: #d7d7d7;
+            transform: translateY(-2px);
+        }
+
+        .pill-button.dark {
+            color: #ccc;
+            background: #242424;
+            border-color: #343434;
+        }
+
+        .pill-button.dark:hover {
+            background: #323232;
+        }
+
+        .pill-button .icon {
+            width: 15px;
+            height: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: #242424;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px;
+        }
+
+        /* =========================================
+           03 — HERO
+        ========================================= */
+
+        .hero {
+            text-align: center;
+            padding-top: 73px;
+        }
+
+        .announcement {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 7px 15px;
+            border: 1px solid #3b3b3b;
+            border-radius: 100px;
+            background: linear-gradient(180deg, #303030, #232323);
+            color: #d9d9d9;
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: 0 3px 12px #0002;
+            transition: background .2s;
+        }
+
+        .announcement:hover {
+            background: #353535;
+        }
+
+        .announcement-symbol {
+            color: var(--cyan);
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            margin-top: 39px;
+            font-size: clamp(40px, 4.3vw, 65px);
+            font-weight: 750;
+            letter-spacing: -.055em;
+            line-height: 1.12;
+        }
+
+        .hero-description {
+            color: #a0a0a0;
+            font-size: 15px;
+            margin: 19px auto 0;
+            max-width: 730px;
+        }
+
+        .hero-action {
+            margin-top: 43px;
+        }
+
+        .primary-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 19px;
+            padding: 16px 25px;
+            background: #fafafa;
+            color: #161616;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            text-align: left;
+            box-shadow: 0 5px 18px #0003;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .primary-action:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px #0005;
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 10px);
+            gap: 3px;
+        }
+
+        .brand-grid span {
+            width: 10px;
+            height: 10px;
+            border-radius: 1px;
+        }
+
+        .brand-grid span:nth-child(1) {
+            background: #ec7549;
+        }
+
+        .brand-grid span:nth-child(2) {
+            background: #8ac54c;
+        }
+
+        .brand-grid span:nth-child(3) {
+            background: #39a6ed;
+        }
+
+        .brand-grid span:nth-child(4) {
+            background: #eac155;
+        }
+
+        .primary-action strong {
+            display: block;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .primary-action small {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            font-weight: 400;
+        }
+
+        .hero-text-link {
+            display: table;
+            color: #969696;
+            font-size: 11px;
+            margin: 11px auto 0;
+            border-bottom: 1px solid #535353;
+        }
+
+        .hero-text-link:hover {
+            color: white;
+        }
+
+        /* =========================================
+           04 — INTERACTIVE WORKSPACE
+        ========================================= */
+
+        .workspace-wrap {
+            margin-top: 74px;
+            position: relative;
+        }
+
+        .workspace {
+            text-align: left;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow:
+                0 30px 75px rgba(0, 0, 0, .35),
+                inset 0 0 0 1px #202020;
+            overflow: hidden;
+        }
+
+        .workspace-inner {
+            border: 1px solid #303030;
+            border-radius: 13px;
+            display: grid;
+            grid-template-columns: 23% minmax(0, 1fr) 27%;
+            min-height: 640px;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            min-width: 0;
+            padding: 17px 10px 12px;
+            background: #1b1b1b;
+            border-right: 1px solid #2b2b2b;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 2px 9px 20px;
+        }
+
+        .window-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .window-dot.red {
+            background: #ff6058;
+        }
+
+        .window-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .window-dot.green {
+            background: #28c840;
+        }
+
+        .window-tools {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            color: #8c8c8c;
+            gap: 12px;
+        }
+
+        .window-tools .icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .sidebar-action {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px;
+            color: #c9c9c9;
+            background: none;
+            border: 0;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .sidebar-action:hover {
+            background: #2a2a2a;
+            color: white;
+        }
+
+        .sidebar-action .icon {
+            width: 15px;
+            height: 15px;
+            color: #a2a2a2;
+        }
+
+        .sidebar-label {
+            padding: 20px 9px 8px;
+            color: #858585;
+            font-size: 11px;
+        }
+
+        .tree-folder {
+            color: #9a9a9a;
+            font-size: 11px;
+            padding: 8px 9px 4px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .tree-folder .icon {
+            width: 13px;
+            height: 13px;
+        }
+
+        .file-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 8px 8px 17px;
+            border: 1px solid transparent;
+            background: none;
+            color: #b9b9b9;
+            border-radius: 7px;
+            font-size: 11.5px;
+            text-align: left;
+            margin: 2px 0;
+        }
+
+        .file-button:hover {
+            background: #272727;
+        }
+
+        .file-button.active {
+            background: #2c2c2c;
+            color: #f3f3f3;
+            border-color: #343434;
+        }
+
+        .file-indicator {
+            width: 6px;
+            height: 6px;
+            background: #737373;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .file-button.active .file-indicator {
+            background: var(--cyan);
+            box-shadow: 0 0 9px #29b8ef66;
+        }
+
+        .file-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-type {
+            margin-left: auto;
+            font-size: 9px;
+            color: #777;
+        }
+
+        .workspace-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 16px 9px 3px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background: #303030;
+            border: 1px solid #454545;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #ccc;
+            font-size: 10px;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-settings {
+            color: #848484;
+            margin-left: auto;
+        }
+
+        .profile-settings .icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .editor {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-toolbar {
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            background: #1b1b1b;
+            border-bottom: 1px solid #2b2b2b;
+        }
+
+        .editor-tab {
+            font-size: 11px;
+            color: #dedede;
+            font-weight: 600;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .toolbar-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: #262626;
+            color: #a0a0a0;
+            font-size: 9px;
+        }
+
+        .toolbar-chip .icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        .editor-status {
+            margin-left: auto;
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+        }
+
+        .editor-status .icon {
+            width: 15px;
+            height: 15px;
+        }
+
+        .editor-content {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 19px 22px;
+        }
+
+        .editor-prompt {
+            align-self: flex-end;
+            max-width: 94%;
+            background: #252525;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-size: 12px;
+            color: #d8d8d8;
+            margin-bottom: 31px;
+        }
+
+        .editor-meta {
+            font-size: 10px;
+            color: #858585;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 15px;
+        }
+
+        .editor-meta .icon {
+            width: 13px;
+            height: 13px;
+        }
+
+        .editor-document {
+            color: #c2c2c2;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .editor-document h2 {
+            font-size: 21px;
+            color: #f4f4f4;
+            font-weight: 650;
+            line-height: 1.3;
+            margin-bottom: 13px;
+            letter-spacing: -.7px;
+        }
+
+        .editor-document p {
+            margin-bottom: 15px;
+        }
+
+        .editor-document strong {
+            color: #f0f0f0;
+            font-weight: 600;
+        }
+
+        .editor-document a {
+            color: var(--cyan);
+        }
+
+        .editor-document a:hover {
+            text-decoration: underline;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border: 1px solid #303030;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            line-height: 1.9;
+            color: #c0c0c0;
+            overflow-x: auto;
+        }
+
+        .syntax-purple {
+            color: #c792ea;
+        }
+
+        .syntax-green {
+            color: #a8c784;
+        }
+
+        .syntax-blue {
+            color: #82aaff;
+        }
+
+        .syntax-orange {
+            color: #e6a66e;
+        }
+
+        .activity-line {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            color: #888;
+            font-size: 10px;
+            margin: 10px 0 14px;
+        }
+
+        .activity-line .icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .activity-line .success {
+            color: var(--green);
+        }
+
+        /* Terminal */
+
+        .terminal {
+            margin-top: auto;
+            background: #252525;
+            border: 1px solid #323232;
+            border-radius: 12px;
+            padding: 13px;
+        }
+
+        .terminal-output {
+            display: none;
+            color: #b9b9b9;
+            font-family: var(--mono);
+            font-size: 10px;
+            line-height: 1.7;
+            max-height: 140px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            padding-bottom: 10px;
+        }
+
+        .terminal-output.visible {
+            display: block;
+        }
+
+        .terminal-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #efefef;
+            width: 100%;
+            min-width: 0;
+            outline: none;
+            font-size: 11px;
+            padding: 5px 0 10px;
+        }
+
+        .terminal-input:focus-visible {
+            outline: none;
+        }
+
+        .terminal-input::placeholder {
+            color: #828282;
+        }
+
+        .terminal-bottom {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #a4a4a4;
+            font-size: 10px;
+        }
+
+        .terminal-bottom .icon {
+            width: 13px;
+            height: 13px;
+        }
+
+        .terminal-hint {
+            background: none;
+            border: none;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        .terminal-hint:hover {
+            color: white;
+        }
+
+        .terminal-mode {
+            margin-left: auto;
+        }
+
+        .terminal-submit {
+            width: 27px;
+            height: 27px;
+            border: 1px solid #1677a1;
+            background: #155a78;
+            color: #a9e5ff;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+        }
+
+        .terminal-submit:hover {
+            background: #197ba4;
+        }
+
+        /* Inspector */
+
+        .inspector {
+            padding: 13px 10px 10px 0;
+            min-width: 0;
+        }
+
+        .inspector-header {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 13px;
+            color: #999;
+            padding: 0 6px;
+        }
+
+        .inspector-header .icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .inspector-panel {
+            background: #232323;
+            border: 1px solid #343434;
+            border-radius: 12px;
+            padding: 17px 14px;
+            margin-top: 13px;
+        }
+
+        .inspector-title {
+            color: #d1d1d1;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .inspector-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 0;
+            color: #b5b5b5;
+            font-size: 11px;
+        }
+
+        .inspector-row .icon {
+            width: 14px;
+            height: 14px;
+            color: #9b9b9b;
+        }
+
+        .inspector-row .right {
+            margin-left: auto;
+        }
+
+        .green-text {
+            color: var(--green);
+        }
+
+        .cyan-text {
+            color: var(--cyan);
+        }
+
+        .inspector-divider {
+            height: 1px;
+            background: #373737;
+            margin: 13px 0;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            color: #8b8b8b;
+            font-size: 10px;
+            margin-bottom: 13px;
+        }
+
+        .goal-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 11px;
+            color: #d3d3d3;
+            line-height: 1.55;
+        }
+
+        .goal-content .icon {
+            width: 15px;
+            height: 15px;
+        }
+
+        .goal-tags {
+            display: flex;
+            gap: 7px;
+            margin: 10px 0 3px 22px;
+            font-size: 9px;
+            color: #8f8f8f;
+        }
+
+        .progress-track {
+            height: 3px;
+            background: #373737;
+            border-radius: 10px;
+            margin: 13px 0;
+            overflow: hidden;
+        }
+
+        .progress-track span {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #31835b;
+        }
+
+        .progress-label {
+            font-size: 10px;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+
+        .check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #a2a2a2;
+            font-size: 10.5px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .check-row .icon {
+            color: #349e65;
+            width: 15px;
+            height: 15px;
+        }
+
+        /* =========================================
+           05 — SHARED SECTION STYLES
+        ========================================= */
+
+        .section {
+            padding-top: 125px;
+        }
+
+        .eyebrow {
+            color: var(--cyan);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(26px, 3vw, 35px);
+            line-height: 1.25;
+            font-weight: 650;
+            letter-spacing: -1.1px;
+        }
+
+        .section-heading p {
+            color: #999;
+            margin-top: 9px;
+            font-size: 14px;
+            max-width: 710px;
+        }
+
+        .three-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        /* =========================================
+           06 — EXPERTISE CARDS
+        ========================================= */
+
+        .expertise-card {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 365px;
+            padding: 23px;
+            border: 1px solid #303030;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #1b1b1b, #191919);
+            box-shadow: 0 12px 25px #0002;
+            transition:
+                transform .3s,
+                border-color .3s,
+                box-shadow .3s;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            border-color: #525252;
+            box-shadow: 0 20px 35px #0003;
+        }
+
+        .expertise-card.featured {
+            border-color: #3b494e;
+            box-shadow: 0 20px 55px #079bc00b;
+        }
+
+        .expertise-card.gold {
+            border-color: #4d4025;
+            background:
+                linear-gradient(180deg, #322919 0%, #1b1a18 47%, #191919 80%);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .card-category {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .small-badge {
+            background: #323232;
+            color: #ddd;
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .gold .small-badge {
+            background: #5a4820;
+            color: #f2d27d;
+        }
+
+        .expertise-card h3 {
+            font-size: 22px;
+            font-weight: 650;
+            letter-spacing: -.5px;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #929292;
+            font-size: 12px;
+            min-height: 45px;
+            line-height: 1.6;
+        }
+
+        .card-focus {
+            font-size: clamp(23px, 2.4vw, 32px);
+            font-weight: 700;
+            letter-spacing: -1.3px;
+            line-height: 1.2;
+            margin-top: 15px;
+        }
+
+        .gold .card-focus {
+            color: var(--gold);
+        }
+
+        .card-focus-caption {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ddd;
+            font-size: 11px;
+            margin-top: 14px;
+            font-weight: 600;
+        }
+
+        .card-focus-caption .icon {
+            width: 13px;
+            height: 13px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: #303030;
+            margin: 18px 0 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 11px;
+            color: #a7a7a7;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .feature-list .icon {
+            width: 14px;
+            height: 14px;
+            margin-top: 2px;
+            color: #aaa;
+        }
+
+        .section-note {
+            color: #888;
+            font-size: 11px;
+            margin-top: 29px;
+        }
+
+        /* =========================================
+           07 — PROJECT CARDS
+        ========================================= */
+
+        .project-card {
+            border: 1px solid #303030;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #1c1c1c, #191919);
+            overflow: hidden;
+            box-shadow: 0 18px 30px #0002;
+            transition: transform .3s, border-color .3s;
+        }
+
+        .project-card:hover {
+            border-color: #505050;
+            transform: translateY(-5px);
+        }
+
+        .project-visual {
+            position: relative;
+            height: 263px;
+            background: #181818;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .project-visual::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0;
+            height: 35%;
+            background: linear-gradient(transparent, #18181866);
+            pointer-events: none;
+        }
+
+        .project-content {
+            padding: 22px;
+        }
+
+        .project-content h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-weight: 650;
+            font-size: 16px;
+            letter-spacing: -.25px;
+            margin-bottom: 9px;
+        }
+
+        .project-content h3 .icon {
+            width: 15px;
+            height: 15px;
+            color: #8a8a8a;
+            transition: transform .2s;
+        }
+
+        .project-card:hover h3 .icon {
+            transform: translate(2px, -2px);
+            color: white;
+        }
+
+        .project-content p {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #9a9a9a;
+        }
+
+        /* GB Coder visual */
+
+        .visual-code {
+            position: absolute;
+            inset: 0;
+            padding: 10px 0;
+            font-size: 11px;
+            font-family: var(--mono);
+            line-height: 2;
+            color: #8a5b50;
+            opacity: .17;
+            overflow: hidden;
+            white-space: pre;
+            transform: scale(1.08);
+        }
+
+        .visual-code span {
+            color: #87a372;
+        }
+
+        .mini-goal {
+            position: relative;
+            width: 73%;
+            z-index: 1;
+        }
+
+        .mini-goal-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 31px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 17px;
+        }
+
+        .mini-goal-title .icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .mini-goal-card {
+            padding: 15px;
+            background: linear-gradient(140deg, #343434, #252525);
+            border: 1px solid #464646;
+            border-radius: 11px;
+            box-shadow: 0 12px 30px #0005;
+        }
+
+        .mini-caption {
+            font-size: 9px;
+            color: #aaa;
+        }
+
+        .mini-goal-name {
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+
+        .mini-progress {
+            height: 3px;
+            background: #474747;
+            margin: 12px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .mini-progress span {
+            display: block;
+            width: 76%;
+            height: 100%;
+            background: #3eaf72;
+        }
+
+        .mini-check {
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #a8a8a8;
+            margin-top: 7px;
+        }
+
+        .mini-check .icon {
+            width: 12px;
+            height: 12px;
+            color: var(--green);
+        }
+
+        /* LadeStack tools visual */
+
+        .mini-window {
+            width: 82%;
+            height: 176px;
+            background: #151515;
+            border: 1px solid #414141;
+            border-radius: 9px;
+            box-shadow: 0 15px 30px #0006;
+            overflow: hidden;
+            transform: rotate(-2deg);
+            transition: transform .35s;
+        }
+
+        .project-card:hover .mini-window {
+            transform: rotate(0deg) scale(1.035);
+        }
+
+        .mini-window-bar {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 23px;
+            padding: 7px;
+            background: #242424;
+            border-bottom: 1px solid #333;
+        }
+
+        .mini-window-bar i {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #f36b62;
+        }
+
+        .mini-window-bar i:nth-child(2) {
+            background: #f6c35d;
+        }
+
+        .mini-window-bar i:nth-child(3) {
+            background: #50bb72;
+        }
+
+        .mini-window-bar span {
+            margin: auto;
+            font-size: 7px;
+            color: #a9a9a9;
+        }
+
+        .mini-dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 7px;
+            padding: 11px;
+        }
+
+        .mini-tool {
+            padding: 9px;
+            border: 1px solid #343434;
+            border-radius: 6px;
+            background: #202020;
+            font-size: 8px;
+            color: #c4c4c4;
+        }
+
+        .mini-tool .icon {
+            display: block;
+            width: 16px;
+            height: 16px;
+            margin-bottom: 5px;
+            color: #79bbdc;
+        }
+
+        .floating-tool {
+            position: absolute;
+            display: grid;
+            place-items: center;
+            width: 49px;
+            height: 49px;
+            border-radius: 13px;
+            box-shadow: 0 10px 25px #0005;
+            z-index: 2;
+        }
+
+        .floating-tool .icon {
+            width: 25px;
+            height: 25px;
+        }
+
+        .floating-tool.one {
+            background: #32a7dc;
+            color: white;
+            right: 7%;
+            bottom: 17%;
+            transform: rotate(12deg);
+        }
+
+        .floating-tool.two {
+            background: #278452;
+            color: #e2ffe9;
+            top: 13%;
+            right: 20%;
+            width: 39px;
+            height: 39px;
+            transform: rotate(-11deg);
+        }
+
+        .floating-tool.three {
+            background: #22588e;
+            color: #94d3ff;
+            left: 6%;
+            top: 45%;
+            transform: rotate(-15deg);
+        }
+
+        /* Repository visual */
+
+        .repository-visual {
+            width: 85%;
+            position: relative;
+        }
+
+        .repo-search {
+            height: 27px;
+            display: flex;
+            align-items: center;
+            padding: 6px 9px;
+            color: #939393;
+            font-size: 9px;
+            border: 1px solid #373737;
+            background: #212121;
+            border-radius: 6px;
+            gap: 7px;
+            margin-bottom: 10px;
+        }
+
+        .repo-search .icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        .repo-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            background: #1e1e1e;
+            border: 1px solid #303030;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        .repo-entry strong {
+            display: block;
+            font-size: 9px;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .repo-entry small {
+            font-size: 8px;
+            color: #909090;
+        }
+
+        .repo-language {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 8px;
+            color: #9a9a9a;
+        }
+
+        .repo-language i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #d9bd58;
+        }
+
+        .repo-language.blue i {
+            background: #4387cc;
+        }
+
+        .repo-language.orange i {
+            background: #e46f49;
+        }
+
+        /* =========================================
+           08 — CONNECT
+        ========================================= */
+
+        .connect-section {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .connect-section .section-heading {
+            margin-bottom: 34px;
+        }
+
+        .link-column h3 {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .link-column h3 .icon {
+            width: 19px;
+            height: 19px;
+            color: #ddd;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            width: 100%;
+            padding: 12px 15px;
+            background: #242424;
+            border: 1px solid #292929;
+            border-radius: 8px;
+            margin-top: 7px;
+            font-size: 11px;
+            color: #d8d8d8;
+            transition: background .2s, border-color .2s;
+        }
+
+        .resource-link:hover {
+            background: #303030;
+            border-color: #414141;
+        }
+
+        .resource-tag {
+            font-size: 9px;
+            line-height: 1.5;
+            padding: 2px 6px;
+            background: #393939;
+            color: #bbb;
+            border-radius: 4px;
+        }
+
+        .resource-link .icon {
+            margin-left: auto;
+            width: 13px;
+            height: 13px;
+            color: #929292;
+        }
+
+        .copy-email {
+            border: 1px solid #292929;
+            text-align: left;
+        }
+
+        /* =========================================
+           09 — FOOTER
+        ========================================= */
+
+        .footer {
+            border-top: 1px solid #2c2c2c;
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            color: #929292;
+            font-size: 11px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #969696;
+            transition: color .2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            width: 40px;
+            height: 40px;
+            background: #262626;
+            color: #ddd;
+            border: 1px solid #3c3c3c;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: .25s;
+            z-index: 90;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #353535;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            padding: 12px 20px;
+            background: #282828;
+            color: #eee;
+            border: 1px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px #0004;
+            font-size: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .25s;
+            z-index: 200;
+            max-width: calc(100% - 32px);
+        }
+
+        .toast.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        /* =========================================
+           10 — MOTION
+        ========================================= */
+
+        .hero-intro {
+            animation: hero-enter .8s ease both;
+        }
+
+        @keyframes hero-enter {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition:
+                opacity .7s ease,
+                transform .7s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .js .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .js .reveal.delay-one {
+            transition-delay: .08s;
+        }
+
+        .js .reveal.delay-two {
+            transition-delay: .16s;
+        }
+
+        .document-enter {
+            animation: document-enter .25s ease both;
+        }
+
+        @keyframes document-enter {
+            from {
+                opacity: .3;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================
+           11 — RESPONSIVE LAYOUT
+        ========================================= */
+
+        @media (min-width: 1500px) {
+            .hero {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .navigation {
+                gap: 30px;
+            }
+
+            .nav-links {
+                gap: 17px;
+            }
+
+            .workspace-inner {
+                grid-template-columns: 23% minmax(0, 1fr) 26%;
+            }
+
+            .editor-content {
+                padding: 17px 15px;
+            }
+
+            .toolbar-chip.branch {
+                display: none;
+            }
+
+            .expertise-card {
+                padding: 19px;
+            }
+
+            .project-visual {
+                height: 230px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .navigation {
+                height: 65px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 65px;
+                left: 24px;
+                right: 24px;
+                padding: 12px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 2px;
+                background: #202020;
+                border: 1px solid #363636;
+                border-radius: 12px;
+                box-shadow: 0 15px 35px #0005;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px;
+                border-radius: 6px;
+            }
+
+            .nav-links a:hover {
+                background: #2b2b2b;
+            }
+
+            .menu-toggle {
+                display: grid;
+                place-items: center;
+            }
+
+            .inspector {
+                display: none;
+            }
+
+            .workspace-inner {
+                grid-template-columns: 29% minmax(0, 1fr);
+                min-height: 590px;
+            }
+
+            .three-grid {
+                gap: 13px;
+            }
+
+            .expertise-card {
+                padding: 17px;
+            }
+
+            .card-focus {
+                font-size: 25px;
+            }
+
+            .card-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .project-content {
+                padding: 17px;
+            }
+
+            .project-visual {
+                height: 205px;
+            }
+
+            .mini-goal-title {
+                font-size: 25px;
+            }
+
+            .mini-goal-card {
+                padding: 11px;
+            }
+
+            .resource-link {
+                padding: 12px 10px;
+                flex-wrap: wrap;
+            }
+
+            .section {
+                padding-top: 95px;
+            }
+
+            .connect-section {
+                padding-bottom: 70px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container,
+            .section-container {
+                width: calc(100% - 32px);
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .brand-mark {
+                width: 32px;
+                height: 32px;
+                font-size: 21px;
+            }
+
+            .nav-actions {
+                gap: 7px;
+            }
+
+            .nav-actions .dark {
+                display: none;
+            }
+
+            .nav-actions .pill-button {
+                font-size: 11px;
+                padding: 8px 13px;
+            }
+
+            .nav-links {
+                left: 16px;
+                right: 16px;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .announcement {
+                font-size: 10px;
+                line-height: 1.5;
+                padding: 7px 11px;
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: clamp(37px, 10vw, 52px);
+                line-height: 1.1;
+                margin-top: 30px;
+                letter-spacing: -.055em;
+            }
+
+            .hero-description {
+                font-size: 13px;
+                line-height: 1.8;
+                max-width: 350px;
+            }
+
+            .hero-action {
+                margin-top: 28px;
+            }
+
+            .workspace-wrap {
+                margin-top: 50px;
+            }
+
+            .workspace {
+                padding: 5px;
+                border-radius: 15px;
+            }
+
+            .workspace-inner {
+                display: flex;
+                flex-direction: column;
+                min-height: auto;
+                border-radius: 10px;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                padding: 10px;
+                border-right: none;
+                border-bottom: 1px solid #333;
+                gap: 4px;
+            }
+
+            .window-controls {
+                grid-column: 1 / -1;
+                padding: 5px 5px 10px;
+            }
+
+            .sidebar-action,
+            .sidebar-label,
+            .tree-folder,
+            .workspace-profile {
+                display: none;
+            }
+
+            .file-button {
+                margin: 0;
+                padding: 8px;
+                font-size: 10px;
+            }
+
+            .editor-toolbar {
+                padding: 8px 10px;
+            }
+
+            .editor-content {
+                padding: 17px 13px;
+                min-height: 490px;
+            }
+
+            .editor-prompt {
+                margin-bottom: 21px;
+                font-size: 11px;
+            }
+
+            .editor-document {
+                font-size: 11.5px;
+            }
+
+            .editor-document h2 {
+                font-size: 20px;
+            }
+
+            .code-snippet {
+                font-size: 9px;
+                padding: 12px;
+            }
+
+            .terminal {
+                margin-top: 20px;
+                padding: 11px;
+            }
+
+            .three-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .section {
+                padding-top: 75px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                gap: 17px;
+                flex-direction: column;
+                margin-bottom: 25px;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+
+            .section-heading p {
+                font-size: 13px;
+            }
+
+            .expertise-card {
+                padding: 23px;
+                min-height: auto;
+            }
+
+            .card-top {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .card-description {
+                min-height: auto;
+            }
+
+            .card-focus {
+                font-size: 32px;
+            }
+
+            .project-visual {
+                height: 250px;
+            }
+
+            .project-content {
+                padding: 23px;
+            }
+
+            .connect-grid {
+                gap: 28px;
+            }
+
+            .connect-section {
+                padding-bottom: 55px;
+            }
+
+            .resource-link {
+                font-size: 12px;
+                padding: 14px;
+            }
+
+            .footer {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+                padding: 24px 0 35px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .back-to-top {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Reusable SVG icon library -->
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="0"
+         height="0"
+         style="position:absolute;overflow:hidden"
+         aria-hidden="true">
+
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+            <path d="M7 17 17 7M7 7h10v10"/>
+        </symbol>
+
+        <symbol id="i-right" viewBox="0 0 24 24">
+            <path d="m9 18 6-6-6-6"/>
+        </symbol>
+
+        <symbol id="i-up" viewBox="0 0 24 24">
+            <path d="M12 19V5m-7 7 7-7 7 7"/>
+        </symbol>
+
+        <symbol id="i-github" viewBox="0 0 24 24">
+            <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19 5a4.8 4.8 0 0 0-.1-3.8S17.8.9 15 2.7a13.4 13.4 0 0 0-6 0C6.2.9 5.1 1.2 5.1 1.2A4.8 4.8 0 0 0 5 5a5.2 5.2 0 0 0-1.3 3.8c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-.9 2.6V22"/>
+        </symbol>
+
+        <symbol id="i-code" viewBox="0 0 24 24">
+            <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-2-16-4 20"/>
+        </symbol>
+
+        <symbol id="i-folder" viewBox="0 0 24 24">
+            <path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+        </symbol>
+
+        <symbol id="i-check" viewBox="0 0 24 24">
+            <path d="m5 12 4 4L19 6"/>
+        </symbol>
+
+        <symbol id="i-check-circle" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="m8 12 3 3 5-6"/>
+        </symbol>
+
+        <symbol id="i-globe" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18"/>
+        </symbol>
+
+        <symbol id="i-mail" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="m3 7 9 6 9-6"/>
+        </symbol>
+
+        <symbol id="i-branch" viewBox="0 0 24 24">
+            <circle cx="6" cy="5" r="3"/>
+            <circle cx="6" cy="19" r="3"/>
+            <circle cx="18" cy="5" r="3"/>
+            <path d="M6 8v8m12-8a7 7 0 0 1-7 7H6"/>
+        </symbol>
+
+        <symbol id="i-terminal" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="16" rx="3"/>
+            <path d="m7 9 4 3-4 3m7 0h4"/>
+        </symbol>
+
+        <symbol id="i-sparkle" viewBox="0 0 24 24">
+            <path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/>
+        </symbol>
+
+        <symbol id="i-search" viewBox="0 0 24 24">
+            <circle cx="10.5" cy="10.5" r="6.5"/>
+            <path d="m16 16 5 5"/>
+        </symbol>
+
+        <symbol id="i-target" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="1"/>
+        </symbol>
+
+        <symbol id="i-panel" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M9 4v16"/>
+        </symbol>
+
+        <symbol id="i-file" viewBox="0 0 24 24">
+            <path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10Zm0 0v7h7"/>
+        </symbol>
+
+        <symbol id="i-menu" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+        </symbol>
+
+        <symbol id="i-x" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18"/>
+        </symbol>
+
+        <symbol id="i-layout" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M3 9h18M12 9v12"/>
+        </symbol>
+
+        <symbol id="i-image" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8" cy="8" r="2"/>
+            <path d="m3 17 6-5 4 4 3-3 5 5"/>
+        </symbol>
+
+        <symbol id="i-layers" viewBox="0 0 24 24">
+            <path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/>
+        </symbol>
+
+        <symbol id="i-copy" viewBox="0 0 24 24">
+            <rect x="8" y="8" width="13" height="13" rx="2"/>
+            <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+        </symbol>
+
+        <symbol id="i-settings" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/>
+            <circle cx="12" cy="12" r="7"/>
+        </symbol>
+
+        <symbol id="i-user" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21v-2a8 8 0 0 1 16 0v2"/>
+        </symbol>
+
+    </svg>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+    <header class="header" id="header">
+        <nav class="navigation container" aria-label="Main navigation">
+
+            <a href="#home" class="brand" aria-label="Girish Lade home">
+                <span class="brand-mark">L</span>
+                GIRISH.
+            </a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Overview</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#projects">Projects</a>
+                <a href="#workspace">Workspace</a>
+                <a href="#connect">Connect</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="pill-button dark"
+                   href="https://github.com/girishlade111"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <svg class="icon"><use href="#i-github"/></svg>
+                    GitHub
+                </a>
+
+                <a class="pill-button"
+                   href="mailto:admin@ladestack.in">
+                    <svg class="icon"><use href="#i-arrow"/></svg>
+                    Let's talk
+                </a>
+
+                <button class="menu-toggle"
+                        id="menuToggle"
+                        aria-label="Open navigation"
+                        aria-controls="navLinks"
+                        aria-expanded="false">
+                    <svg class="icon">
+                        <use id="menuIcon" href="#i-menu"/>
+                    </svg>
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="hero container" id="home">
+
+            <div class="hero-intro">
+
+                <a href="https://ladestack.in/"
+                   class="announcement"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <svg class="icon announcement-symbol">
+                        <use href="#i-sparkle"/>
+                    </svg>
+
+                    Building LadeStack — useful tools for a better digital world
+
+                </a>
+
+                <h1>Design. Develop. Build.</h1>
+
+                <p class="hero-description">
+                    I'm Girish Lade — UI/UX designer, full-stack developer
+                    and independent product builder crafting thoughtful
+                    digital experiences.
+                </p>
+
+                <div class="hero-action">
+
+                    <a class="primary-action"
+                       href="https://ladestack.in/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <span class="brand-grid" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+
+                        <span>
+                            <strong>Explore LadeStack</strong>
+                            <small>My developer ecosystem</small>
+                        </span>
+
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+
+                    </a>
+
+                    <a class="hero-text-link" href="#projects">
+                        View all featured projects
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Interactive developer workspace -->
+
+            <div class="workspace-wrap" id="workspace">
+
+                <div class="workspace">
+
+                    <div class="workspace-inner">
+
+                        <!-- Sidebar -->
+
+                        <aside class="sidebar" aria-label="Workspace explorer">
+
+                            <div class="window-controls" aria-hidden="true">
+
+                                <span class="window-dot red"></span>
+                                <span class="window-dot yellow"></span>
+                                <span class="window-dot green"></span>
+
+                                <div class="window-tools">
+                                    <svg class="icon"><use href="#i-panel"/></svg>
+                                    <svg class="icon"><use href="#i-layout"/></svg>
+                                </div>
+
+                            </div>
+
+                            <button class="sidebar-action" data-open="about">
+                                <svg class="icon"><use href="#i-user"/></svg>
+                                About Me
+                            </button>
+
+                            <a class="sidebar-action" href="#projects">
+                                <svg class="icon"><use href="#i-folder"/></svg>
+                                Open Projects
+                            </a>
+
+                            <a class="sidebar-action" href="#expertise">
+                                <svg class="icon"><use href="#i-sparkle"/></svg>
+                                Explore Skills
+                            </a>
+
+                            <div class="sidebar-label">Workspace</div>
+
+                            <div class="tree-folder">
+                                <svg class="icon"><use href="#i-folder"/></svg>
+                                girish-lade
+                            </div>
+
+                            <button class="file-button active"
+                                    data-file="about"
+                                    aria-pressed="true">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">About me</span>
+                                <span class="file-type">MD</span>
+                            </button>
+
+                            <button class="file-button"
+                                    data-file="journey"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">My journey</span>
+                                <span class="file-type">MD</span>
+                            </button>
+
+                            <button class="file-button"
+                                    data-file="design"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">Design philosophy</span>
+                                <span class="file-type">MD</span>
+                            </button>
+
+                            <div class="tree-folder">
+                                <svg class="icon"><use href="#i-folder"/></svg>
+                                ladestack
+                            </div>
+
+                            <button class="file-button"
+                                    data-file="coder"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">GB Coder</span>
+                                <span class="file-type">APP</span>
+                            </button>
+
+                            <button class="file-button"
+                                    data-file="tools"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">Developer utilities</span>
+                                <span class="file-type">APP</span>
+                            </button>
+
+                            <button class="file-button"
+                                    data-file="research"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">Research & experiments</span>
+                                <span class="file-type">LAB</span>
+                            </button>
+
+                            <div class="tree-folder">
+                                <svg class="icon"><use href="#i-folder"/></svg>
+                                resources
+                            </div>
+
+                            <button class="file-button"
+                                    data-file="github"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">GitHub repositories</span>
+                                <span class="file-type">GIT</span>
+                            </button>
+
+                            <button class="file-button"
+                                    data-file="contact"
+                                    aria-pressed="false">
+                                <span class="file-indicator"></span>
+                                <span class="file-title">Contact information</span>
+                                <span class="file-type">TXT</span>
+                            </button>
+
+                            <div class="workspace-profile">
+
+                                <div class="avatar">
+                                    <img src="https://github.com/girishlade111.png?size=80"
+                                         alt="Girish Lade GitHub avatar"
+                                         width="30"
+                                         height="30"
+                                         loading="lazy"
+                                         onerror="this.remove();this.parentElement.textContent='GL'">
+                                </div>
+
+                                <span>Girish Lade</span>
+
+                                <a class="profile-settings"
+                                   href="#connect"
+                                   aria-label="Contact and profile links">
+                                    <svg class="icon"><use href="#i-settings"/></svg>
+                                </a>
+
+                            </div>
+
+                        </aside>
+
+                        <!-- Main editor -->
+
+                        <div class="editor">
+
+                            <div class="editor-toolbar">
+
+                                <span class="editor-tab" id="editorTab">
+                                    about-me.md — Girish Lade
+                                </span>
+
+                                <span class="toolbar-chip">
+                                    <svg class="icon"><use href="#i-folder"/></svg>
+                                    portfolio
+                                </span>
+
+                                <span class="toolbar-chip branch">
+                                    <svg class="icon"><use href="#i-branch"/></svg>
+                                    main
+                                </span>
+
+                                <span class="editor-status" title="Interactive workspace">
+                                    <svg class="icon"><use href="#i-code"/></svg>
+                                </span>
+
+                            </div>
+
+                            <div class="editor-content">
+
+                                <div class="editor-prompt" id="editorPrompt">
+                                    Introduce yourself, your work, and the
+                                    products you are building at LadeStack.
+                                </div>
+
+                                <div class="editor-meta">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    <span>Personal workspace</span>
+                                    <span>·</span>
+                                    <span>Profile loaded</span>
+                                </div>
+
+                                <article class="editor-document"
+                                         id="editorDocument"
+                                         aria-live="polite">
+
+                                    <h2>Hey, I'm Girish Lade.</h2>
+
+                                    <p>
+                                        I'm a <strong>UI/UX Designer,
+                                        Full-Stack Developer and Founder
+                                        of LadeStack.</strong>
+                                        I build useful digital products
+                                        with a focus on simplicity,
+                                        accessibility and thoughtful
+                                        user experiences.
+                                    </p>
+
+                                    <div class="activity-line">
+                                        <svg class="icon"><use href="#i-search"/></svg>
+                                        Profile
+                                        <span>·</span>
+                                        Pune, Maharashtra, India
+                                    </div>
+
+                                    <p>
+                                        My journey started with Mechanical
+                                        Engineering and evolved into software
+                                        development, interface design and
+                                        independent product building.
+                                    </p>
+
+                                    <div class="code-snippet"><span class="syntax-purple">const</span> <span class="syntax-blue">developer</span> = {
+  name: <span class="syntax-green">"Girish Balaso Lade"</span>,
+  role: <span class="syntax-green">"Independent Product Builder"</span>,
+  founder: <span class="syntax-green">"LadeStack"</span>,
+  mission: <span class="syntax-green">"Build useful things."</span>
+};</div>
+
+                                    <div class="activity-line">
+                                        <svg class="icon"><use href="#i-file"/></svg>
+                                        about.md
+                                        <span>·</span>
+                                        projects.json
+                                        <span class="success">✓ ready</span>
+                                    </div>
+
+                                    <p>
+                                        Currently building browser-first
+                                        developer tools and exploring better
+                                        ways to design, develop and ship
+                                        software.
+                                    </p>
+
+                                </article>
+
+                                <!-- Functional local terminal -->
+
+                                <div class="terminal">
+
+                                    <div class="terminal-output"
+                                         id="terminalOutput"
+                                         role="log"
+                                         aria-live="polite"></div>
+
+                                    <form id="terminalForm"
+                                          class="terminal-form">
+
+                                        <input type="text"
+                                               class="terminal-input"
+                                               id="terminalInput"
+                                               placeholder="Type a command... try help"
+                                               autocomplete="off"
+                                               spellcheck="false"
+                                               aria-label="Portfolio terminal command">
+
+                                    </form>
+
+                                    <div class="terminal-bottom">
+
+                                        <svg class="icon">
+                                            <use href="#i-terminal"/>
+                                        </svg>
+
+                                        <button class="terminal-hint"
+                                                id="helpButton"
+                                                type="button">
+                                            Available commands
+                                        </button>
+
+                                        <span class="terminal-mode">
+                                            Interactive
+                                        </span>
+
+                                        <span>·</span>
+
+                                        <span>GL</span>
+
+                                        <button class="terminal-submit"
+                                                type="submit"
+                                                form="terminalForm"
+                                                aria-label="Run command">
+                                            <svg class="icon">
+                                                <use href="#i-up"/>
+                                            </svg>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Right inspector -->
+
+                        <aside class="inspector">
+
+                            <div class="inspector-header">
+                                <svg class="icon cyan-text"><use href="#i-panel"/></svg>
+                                <svg class="icon"><use href="#i-terminal"/></svg>
+                                <svg class="icon"><use href="#i-layout"/></svg>
+                            </div>
+
+                            <div class="inspector-panel">
+
+                                <div class="inspector-title">
+                                    Developer profile
+                                </div>
+
+                                <div class="inspector-row">
+                                    <svg class="icon"><use href="#i-code"/></svg>
+                                    Development
+                                    <span class="right green-text">Active</span>
+                                </div>
+
+                                <div class="inspector-row">
+                                    <svg class="icon"><use href="#i-branch"/></svg>
+                                    ladestack / main
+                                </div>
+
+                                <a class="inspector-row"
+                                   href="https://github.com/girishlade111"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <svg class="icon"><use href="#i-github"/></svg>
+                                    GitHub
+                                    <svg class="icon right"><use href="#i-arrow"/></svg>
+                                </a>
+
+                                <div class="inspector-divider"></div>
+
+                                <div class="goal-header">
+                                    <span>Mission</span>
+                                    <span class="green-text">Ongoing</span>
+                                </div>
+
+                                <div class="goal-content">
+                                    <svg class="icon"><use href="#i-target"/></svg>
+                                    <span>
+                                        Build practical, accessible and
+                                        privacy-conscious digital products.
+                                    </span>
+                                </div>
+
+                                <div class="goal-tags">
+                                    <span>Design</span>
+                                    <span>Code</span>
+                                    <span>Research</span>
+                                </div>
+
+                                <div class="inspector-divider"></div>
+
+                                <div class="progress-label">
+                                    Core principles
+                                </div>
+
+                                <div class="check-row">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Human-centered interface design
+                                </div>
+
+                                <div class="check-row">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Accessible software experiences
+                                </div>
+
+                                <div class="check-row">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Browser-first developer tools
+                                </div>
+
+                                <div class="check-row">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Privacy-conscious workflows
+                                </div>
+
+                                <div class="check-row">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Continuous learning and experimentation
+                                </div>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             EXPERTISE
+        ====================================== -->
+
+        <section class="section section-container" id="expertise">
+
+            <div class="section-heading reveal">
+
+                <div>
+                    <div class="eyebrow">Expertise</div>
+
+                    <h2>Build with purpose</h2>
+
+                    <p>
+                        Combining design thinking, software engineering
+                        and independent product development.
+                    </p>
+                </div>
+
+                <a class="pill-button"
+                   href="https://github.com/girishlade111"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    View my work
+                    <svg class="icon"><use href="#i-arrow"/></svg>
+                </a>
+
+            </div>
+
+            <div class="three-grid">
+
+                <!-- Design card -->
+
+                <article class="expertise-card reveal">
+
+                    <div class="card-top">
+                        <span class="card-category">Creative discipline</span>
+                    </div>
+
+                    <h3>UI/UX Design</h3>
+
+                    <p class="card-description">
+                        Building intuitive interfaces that make
+                        complex products feel effortless.
+                    </p>
+
+                    <div class="card-focus">Design First</div>
+
+                    <div class="card-focus-caption">
+                        <svg class="icon"><use href="#i-sparkle"/></svg>
+                        Human-centered approach
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <ul class="feature-list">
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Interface and interaction design
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Responsive design systems
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Accessible digital experiences
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Prototyping and visual exploration
+                        </li>
+
+                    </ul>
+
+                </article>
+
+                <!-- Development card -->
+
+                <article class="expertise-card featured reveal delay-one">
+
+                    <div class="card-top">
+                        <span class="card-category">Technical discipline</span>
+                        <span class="small-badge">Core focus</span>
+                    </div>
+
+                    <h3>Development</h3>
+
+                    <p class="card-description">
+                        Turning ideas into functional, modern
+                        and maintainable web applications.
+                    </p>
+
+                    <div class="card-focus">Full Stack</div>
+
+                    <div class="card-focus-caption">
+                        <svg class="icon"><use href="#i-code"/></svg>
+                        End-to-end product development
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <ul class="feature-list">
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Modern frontend development
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Backend architecture and APIs
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Browser-native development tools
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            AI-assisted software workflows
+                        </li>
+
+                    </ul>
+
+                </article>
+
+                <!-- Product card -->
+
+                <article class="expertise-card gold reveal delay-two">
+
+                    <div class="card-top">
+                        <span class="card-category">Independent venture</span>
+                        <span class="small-badge">Founder</span>
+                    </div>
+
+                    <h3>Product Building</h3>
+
+                    <p class="card-description">
+                        Creating useful products that remove
+                        friction from everyday digital workflows.
+                    </p>
+
+                    <div class="card-focus">LadeStack</div>
+
+                    <div class="card-focus-caption">
+                        <svg class="icon"><use href="#i-layers"/></svg>
+                        Ideas into real products
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <ul class="feature-list">
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Developer-focused software
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Practical browser-based utilities
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Privacy-conscious product thinking
+                        </li>
+
+                        <li>
+                            <svg class="icon"><use href="#i-check"/></svg>
+                            Research and rapid experimentation
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </div>
+
+            <p class="section-note reveal">
+                Engineer by training. Product builder by choice.
+                Always learning, experimenting and improving.
+            </p>
+
+        </section>
+
+        <!-- =====================================
+             PROJECTS & CAPABILITIES
+        ====================================== -->
+
+        <section class="section section-container" id="projects">
+
+            <div class="section-heading reveal">
+
+                <div>
+                    <div class="eyebrow">Selected projects</div>
+
+                    <h2>Stay on the Frontier</h2>
+
+                    <p>
+                        From browser-based development environments to
+                        practical everyday utilities, I'm building
+                        software designed to make digital work simpler.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="three-grid">
+
+                <!-- GB Coder -->
+
+                <a class="project-card reveal"
+                   href="https://code.ladestack.in/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <div class="project-visual" aria-hidden="true">
+
+                        <div class="visual-code">function createWorkspace() {
+  <span>const runtime = initialize();</span>
+  return {
+    files: project.files,
+    environment: "browser",
+    <span>preview: true</span>
+  };
+}
+async function build() {
+  <span>await prepareWorkspace();</span>
+  return development.start();
+}
+export default workspace;</div>
+
+                        <div class="mini-goal">
+
+                            <div class="mini-goal-title">
+                                <svg class="icon">
+                                    <use href="#i-target"/>
+                                </svg>
+                                GB Coder
+                            </div>
+
+                            <div class="mini-goal-card">
+
+                                <div class="mini-caption">
+                                    Development workspace
+                                </div>
+
+                                <div class="mini-goal-name">
+                                    Build and experiment directly
+                                    in your browser.
+                                </div>
+
+                                <div class="mini-progress">
+                                    <span></span>
+                                </div>
+
+                                <div class="mini-check">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Browser-based code editor
+                                </div>
+
+                                <div class="mini-check">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    GitHub integration
+                                </div>
+
+                                <div class="mini-check">
+                                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                                    Bring your own AI API key
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3>
+                            GB Coder
+                            <svg class="icon"><use href="#i-arrow"/></svg>
+                        </h3>
+
+                        <p>
+                            A browser-based development environment
+                            with code editing, GitHub integration,
+                            project storage and BYOK AI workflows.
+                        </p>
+
+                    </div>
+
+                </a>
+
+                <!-- LadeStack -->
+
+                <a class="project-card reveal delay-one"
+                   href="https://ladestack.in/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <div class="project-visual" aria-hidden="true">
+
+                        <div class="mini-window">
+
+                            <div class="mini-window-bar">
+                                <i></i><i></i><i></i>
+                                <span>ladestack.in / tools</span>
+                            </div>
+
+                            <div class="mini-dashboard">
+
+                                <div class="mini-tool">
+                                    <svg class="icon"><use href="#i-file"/></svg>
+                                    PDF Utilities
+                                </div>
+
+                                <div class="mini-tool">
+                                    <svg class="icon"><use href="#i-image"/></svg>
+                                    Image Tools
+                                </div>
+
+                                <div class="mini-tool">
+                                    <svg class="icon"><use href="#i-code"/></svg>
+                                    Markdown
+                                </div>
+
+                                <div class="mini-tool">
+                                    <svg class="icon"><use href="#i-layout"/></svg>
+                                    Resume Builder
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="floating-tool one">
+                            <svg class="icon"><use href="#i-code"/></svg>
+                        </div>
+
+                        <div class="floating-tool two">
+                            <svg class="icon"><use href="#i-check"/></svg>
+                        </div>
+
+                        <div class="floating-tool three">
+                            <svg class="icon"><use href="#i-layers"/></svg>
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3>
+                            LadeStack Ecosystem
+                            <svg class="icon"><use href="#i-arrow"/></svg>
+                        </h3>
+
+                        <p>
+                            An independent ecosystem of developer
+                            utilities, document tools, image utilities
+                            and productivity-focused web applications.
+                        </p>
+
+                    </div>
+
+                </a>
+
+                <!-- GitHub projects -->
+
+                <a class="project-card reveal delay-two"
+                   href="https://github.com/girishlade111?tab=repositories"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <div class="project-visual" aria-hidden="true">
+
+                        <div class="repository-visual">
+
+                            <div class="repo-search">
+                                <svg class="icon"><use href="#i-search"/></svg>
+                                Explore repositories...
+                            </div>
+
+                            <div class="repo-entry">
+
+                                <div>
+                                    <strong>GB CODER PUBLIC ALPHA</strong>
+                                    <small>Developer environment</small>
+                                </div>
+
+                                <span class="repo-language blue">
+                                    <i></i>
+                                    Code
+                                </span>
+
+                            </div>
+
+                            <div class="repo-entry">
+
+                                <div>
+                                    <strong>Interface experiments</strong>
+                                    <small>Design & development</small>
+                                </div>
+
+                                <span class="repo-language orange">
+                                    <i></i>
+                                    HTML
+                                </span>
+
+                            </div>
+
+                            <div class="repo-entry">
+
+                                <div>
+                                    <strong>Browser utilities</strong>
+                                    <small>Product experiments</small>
+                                </div>
+
+                                <span class="repo-language">
+                                    <i></i>
+                                    Web
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3>
+                            GitHub & Experiments
+                            <svg class="icon"><use href="#i-arrow"/></svg>
+                        </h3>
+
+                        <p>
+                            Explore my public repositories,
+                            creative web experiments, UI concepts
+                            and ongoing software development work.
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             CONNECT
+        ====================================== -->
+
+        <section class="section-container connect-section" id="connect">
+
+            <div class="section-heading reveal">
+
+                <div>
+                    <h2>Find me everywhere</h2>
+
+                    <p>
+                        Explore my work, connect with me, or start a conversation.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="three-grid connect-grid">
+
+                <!-- Development links -->
+
+                <div class="link-column reveal">
+
+                    <h3>
+                        <svg class="icon"><use href="#i-code"/></svg>
+                        Development
+                    </h3>
+
+                    <a class="resource-link"
+                       href="https://github.com/girishlade111"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        GitHub
+                        <span class="resource-tag">git</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                    <a class="resource-link"
+                       href="https://codepen.io/Girish-Lade-the-looper"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        CodePen
+                        <span class="resource-tag">web</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                </div>
+
+                <!-- Product links -->
+
+                <div class="link-column reveal delay-one">
+
+                    <h3>
+                        <span class="brand-grid" aria-hidden="true">
+                            <span></span><span></span>
+                            <span></span><span></span>
+                        </span>
+                        Products
+                    </h3>
+
+                    <a class="resource-link"
+                       href="https://ladestack.in/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        LadeStack
+                        <span class="resource-tag">platform</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                    <a class="resource-link"
+                       href="https://code.ladestack.in/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        GB Coder
+                        <span class="resource-tag">IDE</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                </div>
+
+                <!-- Social links -->
+
+                <div class="link-column reveal delay-two">
+
+                    <h3>
+                        <svg class="icon"><use href="#i-globe"/></svg>
+                        Social & Contact
+                    </h3>
+
+                    <a class="resource-link"
+                       href="https://www.linkedin.com/in/girish-lade/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        LinkedIn
+                        <span class="resource-tag">social</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                    <a class="resource-link"
+                       href="https://www.instagram.com/girish_lade_/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Instagram
+                        <span class="resource-tag">social</span>
+                        <svg class="icon"><use href="#i-arrow"/></svg>
+                    </a>
+
+                    <button class="resource-link copy-email"
+                            type="button"
+                            id="copyEmail">
+                        Copy email address
+                        <span class="resource-tag">mail</span>
+                        <svg class="icon"><use href="#i-copy"/></svg>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="footer section-container">
+
+        <p>
+            © <span id="year">2026</span> Girish Lade.
+            Built with intention.
+        </p>
+
+        <div class="footer-links">
+
+            <a href="#home">Back to top</a>
+
+            <a href="https://ladestack.in/"
+               target="_blank"
+               rel="noopener noreferrer">
+                LadeStack
+            </a>
+
+            <a href="mailto:admin@ladestack.in">
+                Contact & Feedback
+            </a>
+
+        </div>
+
+    </footer>
+
+    <button class="back-to-top"
+            id="backToTop"
+            aria-label="Back to top">
+        <svg class="icon"><use href="#i-up"/></svg>
+    </button>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+        'use strict';
+
+        /* -----------------------------------------
+           01 — WORKSPACE DOCUMENTS
+        ----------------------------------------- */
+
+        const documents = {
+
+            about: {
+                title: 'about-me.md — Girish Lade',
+
+                prompt: 'Introduce yourself, your work, and the products you are building at LadeStack.',
+
+                content: `
+                    <h2>Hey, I'm Girish Lade.</h2>
+
+                    <p>
+                        I'm a <strong>UI/UX Designer, Full-Stack Developer
+                        and Founder of LadeStack.</strong>
+                        I build useful digital products with a focus on
+                        simplicity, accessibility and thoughtful
+                        user experiences.
+                    </p>
+
+                    <div class="activity-line">
+                        <svg class="icon"><use href="#i-search"/></svg>
+                        Profile · Pune, Maharashtra, India
+                    </div>
+
+                    <p>
+                        My journey started with Mechanical Engineering
+                        and evolved into software development,
+                        interface design and independent product building.
+                    </p>
+
+                    <div class="code-snippet"><span class="syntax-purple">const</span> <span class="syntax-blue">developer</span> = {
+  name: <span class="syntax-green">"Girish Balaso Lade"</span>,
+  role: <span class="syntax-green">"Independent Product Builder"</span>,
+  founder: <span class="syntax-green">"LadeStack"</span>,
+  mission: <span class="syntax-green">"Build useful things."</span>
+};</div>
+
+                    <div class="activity-line">
+                        <svg class="icon"><use href="#i-file"/></svg>
+                        about.md · projects.json
+                        <span class="success">✓ ready</span>
+                    </div>
+
+                    <p>
+                        Currently building browser-first developer tools
+                        and exploring better ways to design, develop
+                        and ship software.
+                    </p>
+                `
+            },
+
+            journey: {
+                title: 'my-journey.md',
+
+                prompt: 'How did your engineering background lead you toward software and product development?',
+
+                content: `
+                    <h2>From engineering to software.</h2>
+
+                    <p>
+                        My academic foundation in Mechanical Engineering
+                        shaped how I approach challenges, understand systems,
+                        and solve complex problems.
+                    </p>
+
+                    <p>
+                        Over time, my curiosity led me toward modern
+                        web technologies, interaction design, and
+                        digital product development.
+                    </p>
+
+                    <div class="code-snippet">01 — Engineering mindset
+02 — Web development
+03 — UI/UX exploration
+04 — Independent product building
+05 — LadeStack ecosystem</div>
+
+                    <p>
+                        <strong>Engineer by training.
+                        Product builder by choice.</strong>
+                    </p>
+
+                    <p>
+                        I continue to learn through practical projects,
+                        technical research, experimentation and
+                        building products from the ground up.
+                    </p>
+                `
+            },
+
+            design: {
+                title: 'design-philosophy.md',
+
+                prompt: 'What principles guide the way you design digital experiences?',
+
+                content: `
+                    <h2>Less friction. More clarity.</h2>
+
+                    <p>
+                        Good design should make technology feel natural,
+                        understandable and useful.
+                    </p>
+
+                    <p>
+                        I focus on reducing unnecessary complexity
+                        while preserving the functionality people need.
+                    </p>
+
+                    <div class="code-snippet"><span class="syntax-purple">const</span> principles = [
+  <span class="syntax-green">"Clarity over decoration"</span>,
+  <span class="syntax-green">"Function with aesthetics"</span>,
+  <span class="syntax-green">"Accessibility by design"</span>,
+  <span class="syntax-green">"Consistent interactions"</span>
+];</div>
+
+                    <p>
+                        From typography and spacing to interaction
+                        patterns and responsiveness, every detail
+                        should serve a purpose.
+                    </p>
+                `
+            },
+
+            coder: {
+                title: 'gb-coder.project',
+
+                prompt: 'Explain GB Coder and its approach to browser-based software development.',
+
+                content: `
+                    <h2>GB Coder — browser-first IDE.</h2>
+
+                    <p>
+                        GB Coder is a development environment from
+                        LadeStack, designed to make coding and
+                        experimentation accessible through the browser.
+                    </p>
+
+                    <div class="code-snippet">✓ Browser-based code editing
+✓ GitHub integration
+✓ Project storage
+✓ Bring your own AI API key</div>
+
+                    <p>
+                        The project is evolving, with ongoing work
+                        focused on improving the browser runtime,
+                        development server workflows and live previews.
+                    </p>
+
+                    <p>
+                        <a href="https://code.ladestack.in/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Open GB Coder ↗
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="https://github.com/girishlade111/GB-CODER-PUBLIC-ALPHA"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Explore public alpha repository ↗
+                        </a>
+                    </p>
+                `
+            },
+
+            tools: {
+                title: 'ladestack-tools.json',
+
+                prompt: 'What kinds of practical products are included in the LadeStack ecosystem?',
+
+                content: `
+                    <h2>Useful tools. One ecosystem.</h2>
+
+                    <p>
+                        LadeStack brings together practical web-based
+                        utilities for developers, students, independent
+                        creators and everyday users.
+                    </p>
+
+                    <div class="code-snippet">{
+  <span class="syntax-blue">"products"</span>: [
+    <span class="syntax-green">"GB Coder"</span>,
+    <span class="syntax-green">"PDF and image utilities"</span>,
+    <span class="syntax-green">"Markdown workflows"</span>,
+    <span class="syntax-green">"Resume builder"</span>,
+    <span class="syntax-green">"Land measurement converter"</span>
+  ]
+}</div>
+
+                    <p>
+                        The goal is to reduce unnecessary setup,
+                        cost and friction while providing useful
+                        digital experiences.
+                    </p>
+
+                    <a href="https://ladestack.in/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Explore LadeStack ↗
+                    </a>
+                `
+            },
+
+            research: {
+                title: 'research-lab.md',
+
+                prompt: 'What are your current technical interests and areas of exploration?',
+
+                content: `
+                    <h2>Always exploring.</h2>
+
+                    <p>
+                        My research interests revolve around modern
+                        software development, browser-native computing,
+                        creative interfaces and AI-assisted workflows.
+                    </p>
+
+                    <div class="code-snippet">research/
+├── browser-native-development
+├── ai-assisted-coding
+├── creative-web-experiences
+├── product-architecture
+└── developer-productivity</div>
+
+                    <p>
+                        I use personal experiments to understand how
+                        technologies work and how they can be combined
+                        into useful, more intuitive products.
+                    </p>
+                `
+            },
+
+            github: {
+                title: 'github-repositories.git',
+
+                prompt: 'Where can I explore your code, repositories and public experiments?',
+
+                content: `
+                    <h2>Explore my GitHub.</h2>
+
+                    <p>
+                        My GitHub is a collection of web development
+                        projects, interface experiments, software
+                        utilities and ongoing ideas.
+                    </p>
+
+                    <div class="code-snippet"><span class="syntax-green">$</span> developer --profile
+
+Username: girishlade111
+Platform: GitHub
+Focus: Design + Development
+Ecosystem: LadeStack</div>
+
+                    <p>
+                        <a href="https://github.com/girishlade111"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            View GitHub profile ↗
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="https://github.com/girishlade111?tab=repositories"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Browse public repositories ↗
+                        </a>
+                    </p>
+                `
+            },
+
+            contact: {
+                title: 'contact.txt',
+
+                prompt: 'How can someone contact you or explore your professional profiles?',
+
+                content: `
+                    <h2>Let's build something useful.</h2>
+
+                    <p>
+                        Have an idea, a technical question,
+                        product feedback, or a creative opportunity?
+                        Feel free to connect.
+                    </p>
+
+                    <div class="code-snippet">Name: Girish Balaso Lade
+Location: Pune, India
+Brand: LadeStack
+Email: admin@ladestack.in</div>
+
+                    <p>
+                        <a href="mailto:admin@ladestack.in">
+                            Send an email ↗
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="https://www.linkedin.com/in/girish-lade/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Connect on LinkedIn ↗
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="https://www.instagram.com/girish_lade_/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Find me on Instagram ↗
+                        </a>
+                    </p>
+                `
+            }
+        };
+
+        const editorTab = document.getElementById('editorTab');
+        const editorPrompt = document.getElementById('editorPrompt');
+        const editorDocument = document.getElementById('editorDocument');
+        const fileButtons = document.querySelectorAll('[data-file]');
+
+        function openDocument(file) {
+
+            if (!Object.prototype.hasOwnProperty.call(documents, file)) {
+                return false;
+            }
+
+            const selected = documents[file];
+
+            editorTab.textContent = selected.title;
+            editorPrompt.textContent = selected.prompt;
+
+            // Only trusted, predefined HTML is inserted.
+            editorDocument.innerHTML = selected.content;
+
+            editorDocument.classList.remove('document-enter');
+
+            void editorDocument.offsetWidth;
+
+            editorDocument.classList.add('document-enter');
+
+            fileButtons.forEach(button => {
+
+                const isActive = button.dataset.file === file;
+
+                button.classList.toggle('active', isActive);
+
+                button.setAttribute(
+                    'aria-pressed',
+                    String(isActive)
+                );
+
+            });
+
+            return true;
+        }
+
+        fileButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                openDocument(button.dataset.file);
+            });
+        });
+
+        document.querySelectorAll('[data-open]').forEach(button => {
+            button.addEventListener('click', () => {
+                openDocument(button.dataset.open);
+            });
+        });
+
+        /* -----------------------------------------
+           02 — FUNCTIONAL PORTFOLIO TERMINAL
+        ----------------------------------------- */
+
+        const terminalForm = document.getElementById('terminalForm');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+        const helpButton = document.getElementById('helpButton');
+
+        const commandHistory = [];
+
+        let historyIndex = 0;
+
+        const helpText = `Available commands:
+
+help       Show available commands
+whoami     Display developer profile
+about      Open about me
+journey    Open my journey
+design     Open design philosophy
+coder      Open GB Coder profile
+tools      Explore LadeStack tools
+research   Explore research interests
+projects   Scroll to featured projects
+github     Open GitHub information
+contact    Show contact details
+skills     Scroll to expertise
+clear      Clear terminal output
+ls         List workspace documents`;
+
+        function printTerminal(command, response) {
+
+            terminalOutput.classList.add('visible');
+
+            const entry = document.createElement('div');
+
+            const commandLine = document.createElement('span');
+
+            commandLine.style.color = '#71ce9a';
+
+            // User input is inserted as plain text.
+            commandLine.textContent = '$ ' + command + '\n';
+
+            const result = document.createElement('span');
+
+            result.textContent = response + '\n\n';
+
+            entry.append(commandLine, result);
+
+            terminalOutput.appendChild(entry);
+
+            while (terminalOutput.children.length > 25) {
+                terminalOutput.firstElementChild.remove();
+            }
+
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function executeCommand(rawCommand) {
+
+            const command = rawCommand.trim().toLowerCase();
+
+            if (!command) return;
+
+            commandHistory.push(command);
+
+            historyIndex = commandHistory.length;
+
+            if (command === 'clear') {
+
+                terminalOutput.replaceChildren();
+                terminalOutput.classList.remove('visible');
+
+                return;
+            }
+
+            if (command === 'help') {
+
+                printTerminal(command, helpText);
+
+                return;
+            }
+
+            if (command === 'whoami') {
+
+                printTerminal(
+                    command,
+                    'Girish Balaso Lade\nUI/UX Designer · Full-Stack Developer\nFounder of LadeStack'
+                );
+
+                return;
+            }
+
+            if (command === 'ls') {
+
+                printTerminal(
+                    command,
+                    Object.keys(documents).join('   ')
+                );
+
+                return;
+            }
+
+            if (command === 'projects') {
+
+                document.getElementById('projects').scrollIntoView();
+
+                printTerminal(command, 'Opening featured projects...');
+
+                return;
+            }
+
+            if (command === 'skills') {
+
+                document.getElementById('expertise').scrollIntoView();
+
+                printTerminal(command, 'Opening expertise section...');
+
+                return;
+            }
+
+            if (openDocument(command)) {
+
+                printTerminal(
+                    command,
+                    'Opened ' + documents[command].title
+                );
+
+                return;
+            }
+
+            printTerminal(
+                command,
+                'Unknown command. Type "help" to see available commands.'
+            );
+        }
+
+        terminalForm.addEventListener('submit', event => {
+
+            event.preventDefault();
+
+            executeCommand(terminalInput.value);
+
+            terminalInput.value = '';
+        });
+
+        helpButton.addEventListener('click', () => {
+            executeCommand('help');
+            terminalInput.focus();
+        });
+
+        terminalInput.addEventListener('keydown', event => {
+
+            if (event.key === 'ArrowUp' && commandHistory.length) {
+
+                event.preventDefault();
+
+                historyIndex = Math.max(0, historyIndex - 1);
+
+                terminalInput.value = commandHistory[historyIndex];
+            }
+
+            if (event.key === 'ArrowDown' && commandHistory.length) {
+
+                event.preventDefault();
+
+                historyIndex = Math.min(
+                    commandHistory.length,
+                    historyIndex + 1
+                );
+
+                terminalInput.value =
+                    commandHistory[historyIndex] || '';
+            }
+        });
+
+        /* -----------------------------------------
+           03 — MOBILE NAVIGATION
+        ----------------------------------------- */
+
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const menuIcon = document.getElementById('menuIcon');
+
+        function setMenu(open) {
+
+            navLinks.classList.toggle('open', open);
+
+            menuToggle.setAttribute('aria-expanded', String(open));
+
+            menuToggle.setAttribute(
+                'aria-label',
+                open ? 'Close navigation' : 'Open navigation'
+            );
+
+            menuIcon.setAttribute(
+                'href',
+                open ? '#i-x' : '#i-menu'
+            );
+        }
+
+        menuToggle.addEventListener('click', () => {
+            setMenu(!navLinks.classList.contains('open'));
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                setMenu(false);
+            });
+        });
+
+        document.addEventListener('click', event => {
+
+            if (
+                !navLinks.contains(event.target) &&
+                !menuToggle.contains(event.target)
+            ) {
+                setMenu(false);
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+
+            if (
+                event.key === 'Escape' &&
+                navLinks.classList.contains('open')
+            ) {
+                setMenu(false);
+                menuToggle.focus();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+
+            if (window.innerWidth > 850) {
+                setMenu(false);
+            }
+        });
+
+        /* -----------------------------------------
+           04 — SCROLL INTERACTIONS
+        ----------------------------------------- */
+
+        const header = document.getElementById('header');
+        const backToTop = document.getElementById('backToTop');
+
+        function updateScroll() {
+
+            header.classList.toggle(
+                'scrolled',
+                window.scrollY > 20
+            );
+
+            backToTop.classList.toggle(
+                'visible',
+                window.scrollY > 600
+            );
+        }
+
+        window.addEventListener('scroll', updateScroll, {
+            passive: true
+        });
+
+        updateScroll();
+
+        backToTop.addEventListener('click', () => {
+
+            const reducedMotion = window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+
+            window.scrollTo({
+                top: 0,
+                behavior: reducedMotion ? 'auto' : 'smooth'
+            });
+        });
+
+        /* -----------------------------------------
+           05 — SCROLL REVEAL
+        ----------------------------------------- */
+
+        if ('IntersectionObserver' in window) {
+
+            const revealObserver = new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add('revealed');
+
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.08
+                }
+            );
+
+            document.documentElement.classList.add('js');
+
+            document.querySelectorAll('.reveal').forEach(element => {
+                revealObserver.observe(element);
+            });
+        }
+
+        /* -----------------------------------------
+           06 — COPY EMAIL
+        ----------------------------------------- */
+
+        const toast = document.getElementById('toast');
+
+        let toastTimer;
+
+        function showToast(message) {
+
+            clearTimeout(toastTimer);
+
+            toast.textContent = message;
+
+            toast.classList.add('visible');
+
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('visible');
+            }, 3000);
+        }
+
+        document.getElementById('copyEmail')
+            .addEventListener('click', async () => {
+
+                const email = 'admin@ladestack.in';
+
+                try {
+
+                    await navigator.clipboard.writeText(email);
+
+                    showToast('Email address copied.');
+
+                } catch (error) {
+
+                    showToast('Email: ' + email);
+                }
+            });
+
+        /* -----------------------------------------
+           07 — DYNAMIC COPYRIGHT YEAR
+        ----------------------------------------- */
+
+        document.getElementById('year').textContent =
+            new Date().getFullYear();
+
+    </script>
+
+</body>
+</html>
